@@ -37,5 +37,6 @@ HEADERS += \
     createdatafiledialog.h
 
 FORMS += \
+    mainwindow.ui\
     newtaskdialog.ui \
     createdatafiledialog.ui
