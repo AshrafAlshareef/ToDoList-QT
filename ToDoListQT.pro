@@ -26,15 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    iomanager.cpp \
-    newtaskdialog.cpp \
-    createdatafiledialog.cpp
+        iomanager.cpp \
+        newtaskdialog.cpp \
+        createdatafiledialog.cpp
 
 HEADERS += \
         mainwindow.h \
-    iomanager.h \
-    newtaskdialog.h \
-    createdatafiledialog.h
+        iomanager.h \
+        newtaskdialog.h \
+        createdatafiledialog.h
 
 FORMS += \
     mainwindow.ui\
