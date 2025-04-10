@@ -10,10 +10,10 @@ IOManager::IOManager()
    }
 
 
-bool IOManager::exists(string path)
+bool IOManager::exists(std::string path)
    {
-   ifstream infile;
-   infile.exceptions(ifstream::failbit | ifstream::badbit);
+   std::ifstream infile;
+   infile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
    try
       {
@@ -21,19 +21,19 @@ bool IOManager::exists(string path)
       infile.close();
       return true;
       }
-   catch (const ifstream::failure& e)
+   catch (const std::ifstream::failure& e)
       {
       return false;
       }
    }
 
 
-vector<string*> IOManager::readFile(string path)
+std::vector<std::string*> IOManager::readFile(std::string path)
    {
-   vector <string*> data;
-   string str;
-   ifstream infile;
-   infile.exceptions(ifstream::failbit | ifstream::badbit);
+   std::vector<std::string*> data;
+   std::string str;
+   std::ifstream infile;
+   infile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
    try
       {
@@ -48,7 +48,7 @@ vector<string*> IOManager::readFile(string path)
          }
       infile.close();
       }
-   catch (const ifstream::failure& e)
+   catch (const std::ifstream::failure& e)
       {
       }
 
@@ -56,25 +56,25 @@ vector<string*> IOManager::readFile(string path)
    }
 
 
-void IOManager::writeFile(string path, string file)
+void IOManager::writeFile(std::string path, std::string file)
    {
-   ofstream outfile(path);
+   std::ofstream outfile(path);
    outfile << file;
    outfile.close();
    }
 
 
-void IOManager::createFile(string path)
+void IOManager::createFile(std::string path)
    {
-   ofstream{path};
+   std::ofstream{path};
    }
 
 
-string* IOManager::split(string l, char regex)
+std::string* IOManager::split(std::string l, char regex)
    {
-   vector<string> vect;
-   stringstream ss(l);
-   string token;
+   std::vector<std::string> vect;
+   std::stringstream ss(l);
+   std::string token;
 
    while (getline(ss,token, regex))
       {
@@ -82,7 +82,7 @@ string* IOManager::split(string l, char regex)
       }
 
    unsigned int i;
-   string *r = new string[vect.size()];
+   std::string *r = new std::string[vect.size()];
    for (i = 0; i < vect.size(); i++)
       {
       r[i] = vect.at(i);

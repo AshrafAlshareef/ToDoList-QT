@@ -1,10 +1,8 @@
-#ifndef CREATEDATAFILEDIALOG_H
-#define CREATEDATAFILEDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include "mainwindow.h"
 
-using namespace std;
 
 namespace Ui {
 class CreateDatafileDialog;
@@ -32,5 +30,3 @@ class CreateDatafileDialog : public QDialog
       void updateOutputLabel();
       MainWindow *origin;
    };
-
-#endif // CREATEDATAFILEDIALOG_H

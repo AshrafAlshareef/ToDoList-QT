@@ -189,7 +189,7 @@ void MainWindow::cellSelected(int nRow, int nCol)
    }
 
 
-void MainWindow::updateTable(vector<string*> data){
+void MainWindow::updateTable(std::vector<std::string*> data){
    table -> clearContents();
    table -> setRowCount(data.size());
    unsigned int i;
@@ -219,7 +219,7 @@ void MainWindow::updateTable(vector<string*> data){
 
 void MainWindow::filter()
    {
-   vector<string*> data = IOManager::readFile(path);
+   std::vector<std::string*> data = IOManager::readFile(path);
    bool completed = cb_completed->isChecked();
 
    time_t now = time(0);

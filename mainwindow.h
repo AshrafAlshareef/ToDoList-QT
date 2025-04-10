@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 #include <QVBoxLayout>
@@ -12,7 +11,6 @@
 #include <ctime>
 #include <QFileDialog>
 
-using namespace std;
 
 namespace Ui {
 class MainWindow;
@@ -24,7 +22,7 @@ class MainWindow : public QMainWindow
 
    public:
       explicit MainWindow();
-      inline void setPath(string path){ this->path = path; }
+      inline void setPath(std::string path){ this->path = path; }
       ~MainWindow();
 
    private slots:
@@ -43,8 +41,8 @@ class MainWindow : public QMainWindow
       void createFilters(QHBoxLayout *layout);
       void initializeTable();
       int getWeekNumber(tm t);
-      void updateTable(vector<string*> data);
-      string path;
+      void updateTable(std::vector<std::string*> data);
+      std::string path;
       QRadioButton *rb_all;
       QRadioButton *rb_overdue;
       QRadioButton *rb_today;
@@ -59,4 +57,3 @@ class MainWindow : public QMainWindow
       QAction *exitProgramAct;
    };
 
-#endif // MAINWINDOW_H

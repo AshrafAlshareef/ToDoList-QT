@@ -40,8 +40,8 @@ void CreateDatafileDialog::on_folder_ed_textChanged(const QString &arg1)
 
 void CreateDatafileDialog::updateOutputLabel()
    {
-   string sfolder(ui->folder_ed->text().toUtf8().constData());
-   string stitle(ui->name_ed->text().toUtf8().constData());
+   std::string sfolder(ui->folder_ed->text().toUtf8().constData());
+   std::string stitle(ui->name_ed->text().toUtf8().constData());
    QString outputstringlbl = QString::fromStdString(
                                 sfolder +
                                 QString(QDir::separator()).toUtf8().constData() +
@@ -54,8 +54,8 @@ void CreateDatafileDialog::updateOutputLabel()
 
 void CreateDatafileDialog::checkFields()
    {
-   string sfolder(ui->folder_ed->text().toUtf8().constData());
-   string stitle(ui->name_ed->text().toUtf8().constData());
+   std::string sfolder(ui->folder_ed->text().toUtf8().constData());
+   std::string stitle(ui->name_ed->text().toUtf8().constData());
 
    if (sfolder.length() > 0 && stitle.length() > 0)
       {
@@ -70,8 +70,8 @@ void CreateDatafileDialog::checkFields()
 
 void CreateDatafileDialog::on_createbtn_clicked()
    {
-   string sfolder(ui->folder_ed->text().toUtf8().constData());
-   string stitle(ui->name_ed->text().toUtf8().constData());
+   std::string sfolder(ui->folder_ed->text().toUtf8().constData());
+   std::string stitle(ui->name_ed->text().toUtf8().constData());
    origin->setPath(sfolder + QString(QDir::separator()).toUtf8().constData() + stitle + ".txt");
    origin->filter();
    this->close();

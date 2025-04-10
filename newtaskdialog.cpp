@@ -1,6 +1,6 @@
 #include "newtaskdialog.h"
 #include "ui_newtaskdialog.h"
-
+#include "iomanager.h"
 
 NewTaskDialog::NewTaskDialog(QWidget *parent)
    : QDialog(parent)
@@ -23,20 +23,20 @@ NewTaskDialog::NewTaskDialog(QWidget *parent)
    }
 
 
-void NewTaskDialog::setPath(string path)
+void NewTaskDialog::setPath(std::string path)
    {
    this->path = path;
    }
 
 
-void NewTaskDialog::setData(string duedate, string title, string percent, string description)
+void NewTaskDialog::setData(std::string duedate, std::string title, std::string percent, std::string description)
    {
    this->oldDuedate = duedate;
    this->oldTitle = title;
    this->oldPercent = percent;
    this->oldDescription = description;
 
-   string *sdate = IOManager::split(duedate, '/');
+   std::string *sdate = IOManager::split(duedate, '/');
    QDate *sd = new QDate(stoi(sdate[0]), stoi(sdate[1]), stoi(sdate[2]));
 
    ui->datepicker->setDate(*sd);
@@ -59,18 +59,18 @@ NewTaskDialog::~NewTaskDialog()
 
 void NewTaskDialog::on_slider_valueChanged(int value)
    {
-   ui->percent_lbl->setText(QString::fromStdString(to_string(value)+"% Compl."));
+   ui->percent_lbl->setText(QString::fromStdString(std::to_string(value)+"% Compl."));
    checkFields();
    }
 
 
 void NewTaskDialog::checkFields()
    {
-   string sdatepicker(ui->datepicker->text().toUtf8().constData());
-   string stitle(ui->title_et->text().toUtf8().constData());
-   string spercent(ui->percent_lbl->text().toUtf8().constData());
+   std::string sdatepicker(ui->datepicker->text().toUtf8().constData());
+   std::string stitle(ui->title_et->text().toUtf8().constData());
+   std::string spercent(ui->percent_lbl->text().toUtf8().constData());
    spercent = spercent.substr(0, spercent.find('%'));
-   string sdescr(ui->description_ed->toPlainText().toUtf8().constData());
+   std::string sdescr(ui->description_ed->toPlainText().toUtf8().constData());
 
    //We check all fields are completed
    if (
@@ -109,14 +109,14 @@ void NewTaskDialog::on_datepicker_userDateChanged(const QDate &date)
 
 void NewTaskDialog::on_savebtn_clicked()
    {
-   vector<string*> lines = IOManager::readFile(path);
+   std::vector<std::string*> lines = IOManager::readFile(path);
    unsigned int i;
-   string sdatepicker(ui->datepicker->text().toUtf8().constData());
-   string stitle(ui->title_et->text().toUtf8().constData());
-   string spercent(ui->percent_lbl->text().toUtf8().constData());
+   std::string sdatepicker(ui->datepicker->text().toUtf8().constData());
+   std::string stitle(ui->title_et->text().toUtf8().constData());
+   std::string spercent(ui->percent_lbl->text().toUtf8().constData());
    spercent = spercent.substr(0, spercent.find('%'));
-   string sdescr(ui->description_ed->toPlainText().toUtf8().constData());
-   string s = "";
+   std::string sdescr(ui->description_ed->toPlainText().toUtf8().constData());
+   std::string s = "";
 
    if (newTask)
       {
@@ -157,7 +157,7 @@ void NewTaskDialog::on_cancelbtn_clicked()
 
 void NewTaskDialog::on_deletebtn_clicked()
    {
-   vector<string*> lines = IOManager::readFile(path);
+   std::vector<std::string*> lines = IOManager::readFile(path);
    unsigned int i;
 
    QMessageBox::StandardButton reply;
@@ -168,7 +168,7 @@ void NewTaskDialog::on_deletebtn_clicked()
       return;
       }
 
-   string s = "";
+   std::string s = "";
 
    for (i=0; i<lines.size(); i++)
       {

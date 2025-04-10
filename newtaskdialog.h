@@ -1,18 +1,15 @@
-#ifndef NEWTASKDIALOG_H
-#define NEWTASKDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <string>
-#include <vector>
 #include <QMessageBox>
-#include "iomanager.h"
 #include "mainwindow.h"
 
-using namespace std;
 
 namespace Ui {
 class NewTaskDialog;
 }
+
 
 class NewTaskDialog : public QDialog
    {
@@ -20,13 +17,13 @@ class NewTaskDialog : public QDialog
 
    public:
       explicit NewTaskDialog(QWidget *parent = 0);
-      void setData(string duedate, string title, string percent, string description);
-      void setPath(string path);
+      void setData(std::string duedate, std::string title, std::string percent, std::string description);
+      void setPath(std::string path);
       inline void setOrigin(MainWindow *origin){ this->origin = origin; }
-      string oldDuedate;
-      string oldTitle;
-      string oldPercent;
-      string oldDescription;
+      std::string oldDuedate;
+      std::string oldTitle;
+      std::string oldPercent;
+      std::string oldDescription;
       ~NewTaskDialog();
 
    private slots:
@@ -43,8 +40,6 @@ class NewTaskDialog : public QDialog
       void checkFields();
       Ui::NewTaskDialog *ui;
       bool newTask;
-      string path;
+      std::string path;
       MainWindow *origin;
    };
-
-#endif // NEWTASKDIALOG_H
