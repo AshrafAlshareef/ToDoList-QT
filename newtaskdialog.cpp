@@ -2,6 +2,7 @@
 #include "calendardialog.h"
 #include "ui_newtaskdialog.h"
 #include "iomanager.h"
+#include <regex>
 
 NewTaskDialog::NewTaskDialog(QWidget *parent)
    : QDialog(parent)
@@ -111,40 +112,43 @@ void NewTaskDialog::on_datepicker_userDateChanged(const QDate &date)
 void NewTaskDialog::on_savebtn_clicked()
    {
    std::vector<std::string*> lines = IOManager::readFile(path);
-   unsigned int i;
    std::string sdatepicker(ui->datepicker->text().toUtf8().constData());
    std::string stitle(ui->title_et->text().toUtf8().constData());
    std::string spercent(ui->percent_lbl->text().toUtf8().constData());
    spercent = spercent.substr(0, spercent.find('%'));
-   std::string sdescr(ui->description_ed->toPlainText().toUtf8().constData());
-   std::string s = "";
 
+   // Get the description and replace newlines with a placeholder
+   std::string sdescr(ui->description_ed->toPlainText().toUtf8().constData());
+   std::string sdescr_placeholder = std::regex_replace(sdescr, std::regex("\n"), "|n|"); // Replace newlines with "|n|"
+
+   std::string s;
+
+   // If it is a new task
    if (newTask)
       {
-      for (i=0; i<lines.size(); i++)
-         {
-         s += lines.at(i)[0] + ";" + lines.at(i)[1] + ";" + lines.at(i)[2] + ";" + lines.at(i)[3] + "\n";
-         }
-      s += sdatepicker+";"+stitle+";"+spercent+";"+sdescr;
+      s += sdatepicker + ";" + stitle + ";" + spercent + ";" + sdescr_placeholder + "\n";
       }
-   else
+
+   // Process all lines to ensure that existing tasks are updated correctly
+   for (const auto& line : lines)
       {
-      for (i=0; i < lines.size(); i++)
+      // Check if this line matches the old task details
+      if (line[0] == oldDuedate && line[1] == oldTitle &&
+          line[2] == oldPercent && line[3] == oldDescription)
          {
-         if (lines.at(i)[0].compare(oldDuedate) == 0 && lines.at(i)[1].compare(oldTitle) == 0 &&
-             lines.at(i)[2].compare(oldPercent) == 0 && lines.at(i)[3].compare(oldDescription) == 0)
-            {
-            s += sdatepicker + ";" + stitle + ";" + spercent + ";" + sdescr + "\n";
-            }
-         else
-            {
-            s += lines.at(i)[0] + ";" + lines.at(i)[1] + ";" + lines.at(i)[2] + ";" + lines.at(i)[3] + "\n";
-            }
+         // If it matches, replace it with the new task details
+         s += sdatepicker + ";" + stitle + ";" + spercent + ";" + sdescr_placeholder + "\n";
+         }
+      else
+         {
+         // Otherwise, keep the existing line, replacing newlines in the description if necessary
+         std::string existing_descr = line[3];
+         std::string existing_descr_placeholder = std::regex_replace(existing_descr, std::regex("\n"), "|n|");
+         s += line[0] + ";" + line[1] + ";" + line[2] + ";" + existing_descr_placeholder + "\n";
          }
       }
 
    IOManager::writeFile(path, s);
-   lines.clear();
    origin->filter();
    this->close();
    }

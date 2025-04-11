@@ -8,7 +8,7 @@ class IOManager
    {
    public:
       IOManager();
-      static std::vector<std::string*> readFile(std::string path);
+      static std::vector<std::string*> readFile(const std::string& path);
       static void createFile(std::string path);
       static void writeFile(std::string path, std::string);
       static std::string* split(std::string l, char regex);

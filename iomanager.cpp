@@ -28,32 +28,37 @@ bool IOManager::exists(std::string path)
    }
 
 
-std::vector<std::string*> IOManager::readFile(std::string path)
+std::vector<std::string*> IOManager::readFile(const std::string& path)
    {
    std::vector<std::string*> data;
    std::string str;
-   std::ifstream infile;
-   infile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+   std::ifstream infile(path);
 
-   try
+   if (!infile)
       {
-      infile.open(path);
-      while (!infile.eof())
+      std::cerr << "Error opening file: " << path << std::endl;
+      return data; // Return empty data on failure
+      }
+
+   while (std::getline(infile, str))
+      {
+      if (!str.empty())
          {
-         getline(infile, str);
-         if (str.length() > 0)
+         // Replace the placeholder back to newlines
+         std::string::size_type pos = 0;
+         while ((pos = str.find("|n|", pos)) != std::string::npos)
             {
-            data.push_back(IOManager::split(str, ';'));
+            str.replace(pos, 3, "\n"); // Replace "|n|" with actual newline
+            pos += 1; // Move past the new character
             }
+         data.push_back(IOManager::split(str, ';'));
          }
-      infile.close();
-      }
-   catch (const std::ifstream::failure& e)
-      {
       }
 
+   infile.close();
    return data;
    }
+
 
 
 void IOManager::writeFile(std::string path, std::string file)
