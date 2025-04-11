@@ -1,4 +1,5 @@
 #include "newtaskdialog.h"
+#include "calendardialog.h"
 #include "ui_newtaskdialog.h"
 #include "iomanager.h"
 
@@ -188,6 +189,13 @@ void NewTaskDialog::on_deletebtn_clicked()
 
 void NewTaskDialog::on_openCalenderPushButton_clicked()
    {
-
+   CalendarDialog dialog(this);
+   connect(&dialog, &CalendarDialog::dateSelected, this, &NewTaskDialog::updateDate);
+   dialog.exec();
    }
 
+
+void NewTaskDialog::updateDate(const QDate &date)
+   {
+   ui->datepicker->setDate(date);
+   }

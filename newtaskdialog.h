@@ -38,6 +38,7 @@ class NewTaskDialog : public QDialog
 
       void on_openCalenderPushButton_clicked();
 
+      void updateDate(const QDate& date);
    private:
       void checkFields();
       Ui::NewTaskDialog *ui;
