@@ -184,3 +184,10 @@ void NewTaskDialog::on_deletebtn_clicked()
    origin->filter();
    this->close();
    }
+
+
+void NewTaskDialog::on_openCalenderPushButton_clicked()
+   {
+
+   }
+

@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        calendardialog.cpp \
         main.cpp \
         mainwindow.cpp \
         iomanager.cpp \
@@ -31,12 +32,14 @@ SOURCES += \
         createdatafiledialog.cpp
 
 HEADERS += \
+        calendardialog.h \
         mainwindow.h \
         iomanager.h \
         newtaskdialog.h \
         createdatafiledialog.h
 
 FORMS += \
+    calendardialog.ui \
     mainwindow.ui\
     newtaskdialog.ui \
     createdatafiledialog.ui

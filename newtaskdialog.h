@@ -36,6 +36,8 @@ class NewTaskDialog : public QDialog
 
       void on_deletebtn_clicked();
 
+      void on_openCalenderPushButton_clicked();
+
    private:
       void checkFields();
       Ui::NewTaskDialog *ui;
